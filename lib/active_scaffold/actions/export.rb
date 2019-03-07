@@ -113,6 +113,11 @@ module ActiveScaffold::Actions
           :per_page => 3000,
           :page => 1
         })
+        query = beginning_of_chain.where(nil) # where(nil) is needed because we need a relation
+        # NOTE: we must use :include in the count query, because some conditions may reference other tables
+        count = count_items(query, finder_options(find_options), finder_options[:count_includes])
+        find_options[:sorting] = nil if count > 3000
+
         find_page(find_options).pager.each do |page|
           yield page.items
         end
