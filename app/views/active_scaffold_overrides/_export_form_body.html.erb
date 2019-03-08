@@ -29,6 +29,8 @@
   <div class="option checkbox-wrapper">
     <%= content_tag(:label, radio_button_tag('full_download', true, export_config.default_full_download) + " #{as_(:all_pages)}".html_safe) if export_config.allow_full_download %>
   </div>
+  <span class="hint">If more than <%= number_with_delimiter(ActiveScaffold::Actions::Export::PAGE_SIZE) %> records are selected for export, the order may be lost.</span>
+
   <div class="separator"></div>
   <% if active_scaffold_config.export_xlsx_avaliable %>
     <div class="option checkbox-wrapper">
